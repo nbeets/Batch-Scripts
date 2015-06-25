@@ -1,0 +1,10 @@
+English
+;
+;     Settings file originally created by BIOS Config Utility
+;     Version:3.2.3.1
+;     Date:2015.03.13
+;
+
+S5 Wake on LAN
+	*Enable
+	Disable
