@@ -1,0 +1,2 @@
+# iTuines Deploy
+Verizon retailer commonly leaves iTunes open overnight during our patch windows, this script will kill itunes if it is open. It will then uninstall iTunes and it's deps then reinstall! 
