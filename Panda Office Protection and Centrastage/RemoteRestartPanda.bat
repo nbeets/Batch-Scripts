@@ -1,17 +1,28 @@
 @ECHO OFF
+if not '%1'=='' goto %1
 
-PUSHD %~dp0
+:START
+echo This tool will remotely restart the Panda Systems Management Agent
+ECHO.
+echo  4G Wireless IT Department
+ECHO __________________
+ECHO.
+Echo 1.- Device is on the WAN
+Echo 0.- Device is on the LAN
+ECHO.
+ECHO.
+ECHO.
 
-echo This is remotely restart the Panda Cloud Systems Management service
+set choice=
+set /p choice=Type the option: 
+if not '%choice%'=='' set choice=%choice:~0,1%
 
-:WANORLAN
-set /p NETWORK=Is this on the LAN or WAN? WAN or LAN:
 
-IF "%NETWORK%"== "wan"  (
-		GOTO ONWAN
-) ELSE (
-		GOTO DOMAINORNAH
-)
+if '%choice%'=='0' goto DOMAINORNAH
+if '%choice%'=='1' goto ONWAN
+ECHO "%choice%" Character invalid , type it again please.
+goto START
+
 
 :DOMAINORNAH
 set /p DOMAIN=Is this on the domain? Yes or no: 
@@ -67,14 +78,24 @@ PAUSE
 GOTO ONEMORE
 
 :ONEMORE
-set /p ONEMORE=Restart service on another endpoint? YES or NO:
+cls
+ECHO Last PC service was restarted on
+nbtstat -A %IPADDR%
+ECHO.
+ECHO.
+ECHO Would you like to restart the service on another computer?
+ECHO.
+Echo 1.- YES
+Echo 0.- NO
+set choice=
+set /p choice=Type the option: 
+if not '%choice%'=='' set choice=%choice:~0,1%
 
-IF "%ONEMORE%"== "yes"  (
-		GOTO WANORLAN
-) ELSE (
-		GOTO END
-)
 
+if '%choice%'=='0' goto END
+if '%choice%'=='1' goto START
+ECHO "%choice%" Character invalid , type it again please.
+goto START
 
 :END
 echo Press any key to exit...
